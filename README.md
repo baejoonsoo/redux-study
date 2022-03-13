@@ -1,1 +1,3 @@
-# Learning vanilla js redux
+# vanilla-redux
+
+Learning vanilla js redux
