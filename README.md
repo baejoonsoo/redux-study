@@ -1,3 +1,3 @@
-# vanilla-redux
+# redux-study
 
-Learning vanilla-redux
+Learning vanilla-redux and react-redux
