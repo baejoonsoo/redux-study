@@ -10,7 +10,7 @@ const DELETE_TODO = "DELETE_TODO";
 const reduser = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, { text: action.text, id: Date.now() }];
+      return [{ text: action.text, id: Date.now() }, ...state];
     case DELETE_TODO:
       return [];
     default:
@@ -22,12 +22,40 @@ const store = createStore(reduser);
 
 store.subscribe(() => console.log(store.getState()));
 
+const AddToDo = (text) => {
+  store.dispatch({ type: ADD_TODO, text });
+};
+
+const deleteToDo = (e) => {
+  console.dir(e.target);
+};
+
+const paintToDo = () => {
+  const toDos = store.getState();
+
+  ul.innerHTML = "";
+
+  toDos.forEach((toDo) => {
+    const li = document.createElement("li");
+    const btn = document.createElement("button");
+    btn.innerText = "DEL";
+    btn.addEventListener("click", deleteToDo);
+    li.id = toDo.id;
+    li.innerText = toDo.text;
+
+    li.appendChild(btn);
+    ul.appendChild(li);
+  });
+};
+
+store.subscribe(paintToDo);
+
 const onSubmit = (e) => {
   e.preventDefault();
 
   const toDo = input.value;
   input.value = "";
-  store.dispatch({ type: ADD_TODO, text: toDo });
+  AddToDo(toDo);
 };
 
 form.addEventListener("submit", onSubmit);
