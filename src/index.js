@@ -10,7 +10,7 @@ const DELETE_TODO = "DELETE_TODO";
 const reduser = (state = [], action) => {
   switch (action.type) {
     case ADD_TODO:
-      return [...state, action.text];
+      return [...state, { text: action.text, id: Date.now() }];
     case DELETE_TODO:
       return [];
     default:
@@ -19,6 +19,8 @@ const reduser = (state = [], action) => {
 };
 
 const store = createStore(reduser);
+
+store.subscribe(() => console.log(store.getState()));
 
 const onSubmit = (e) => {
   e.preventDefault();
