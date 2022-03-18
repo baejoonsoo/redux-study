@@ -2,16 +2,16 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToDo, deleteToDo } from "../redux/toDo";
 
-const TodoItem = ({ todo, onDelete }) => {
+const TodoItem = React.memo(({ todo, onDelete }) => {
   return (
     <li style={{ textDecoration: todo.done ? "line-through" : "none" }}>
       {todo.text}
       <button onClick={() => onDelete(todo.id)}>DEL</button>
     </li>
   );
-};
+});
 
-const TodoList = ({ todos, onDelete }) => {
+const TodoList = React.memo(({ todos, onDelete }) => {
   return (
     <ul>
       {todos.map((todo) => (
@@ -19,7 +19,7 @@ const TodoList = ({ todos, onDelete }) => {
       ))}
     </ul>
   );
-};
+});
 
 const Todos = () => {
   const [text, setText] = useState("");
